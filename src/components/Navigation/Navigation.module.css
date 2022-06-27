@@ -1,0 +1,16 @@
+.mainNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px;
+  background-color: rgb(178, 142, 202);
+}
+
+.link {
+  font-weight: 500;
+  font-size: 30px;
+  margin: 20px;
+  display: 'block';
+  text-decoration: none;
+  color: rgb(196, 195, 195);
+}
