@@ -7,7 +7,7 @@ export default function Movies() {
   const [query, setQuery] = useState('');
   const [data, setData] = useState('');
 
-  let [_, setSearchParams] = useSearchParams();
+  let [, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
 
   const handleChange = evt => {
