@@ -12,7 +12,6 @@ export default function Cast() {
     getCast(movieId).then(response => {
       console.log(response.data.cast);
       setData(response.data.cast);
-      console.log(data);
     })
   }, [movieId]);
 
