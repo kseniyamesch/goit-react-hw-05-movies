@@ -4,10 +4,13 @@ import s from './Movies.module.css';
 import { getMoviesOnQuery } from 'services/api';
 
 export default function Movies() {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(() => (
+    searchParams.get('query') ? searchParams.get('query') : ''
+  ));
   const [data, setData] = useState('');
 
-  let [ setSearchParams] = useSearchParams();
+
   const { pathname, search } = useLocation();
 
   const handleChange = evt => {
