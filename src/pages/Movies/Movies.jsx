@@ -5,11 +5,10 @@ import { getMoviesOnQuery } from 'services/api';
 
 export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(() => (
+  const [query, setQuery] = useState(() =>
     searchParams.get('query') ? searchParams.get('query') : ''
-  ));
+  );
   const [data, setData] = useState('');
-
 
   const { pathname, search } = useLocation();
 
@@ -18,7 +17,6 @@ export default function Movies() {
   };
 
   const handleSubmit = evt => {
-    
     const normalizedQuery = query.trim().toLowerCase();
     evt.preventDefault();
     if (!query) {
@@ -33,12 +31,7 @@ export default function Movies() {
   return (
     <div className="">
       <form onSubmit={handleSubmit} className={s.form}>
-          <input 
-          type="input" 
-          onChange={handleChange}
-          autoFocus
-          value={query}
-          />
+        <input type="input" onChange={handleChange} autoFocus value={query} />
         <button type="submit" className={s.btn}>
           Search
         </button>
@@ -68,4 +61,4 @@ export default function Movies() {
       )}
     </div>
   );
-          }
+}

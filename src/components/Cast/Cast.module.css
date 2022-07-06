@@ -1,21 +1,21 @@
-.img{
-    width: 80px;
+.img {
+  width: 80px;
 }
 
 .list {
-    list-style: none;
+  list-style: none;
 }
 
 .item {
-    display: flex;
+  display: flex;
 }
 
 .item:not(:last-child) {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .desc {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
 }
