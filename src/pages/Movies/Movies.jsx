@@ -33,9 +33,12 @@ export default function Movies() {
   return (
     <div className="">
       <form onSubmit={handleSubmit} className={s.form}>
-        <label>
-          <input type="input" onChange={handleChange} />
-        </label>
+          <input 
+          type="input" 
+          onChange={handleChange}
+          autoFocus
+          value={query}
+          />
         <button type="submit" className={s.btn}>
           Search
         </button>

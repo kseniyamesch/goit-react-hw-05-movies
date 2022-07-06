@@ -27,7 +27,6 @@ useEffect(() => {
 
     return (
         <div className={s.wrap}>
-        {/* <button type='click'>Go back</button> */}
         <Link to={path}>Go back</Link>
 
 {data && (
