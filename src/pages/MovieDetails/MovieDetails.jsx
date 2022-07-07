@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState, Suspense} from 'react';
+import {
+  Link,
+  Outlet,
+  useParams,
+  useLocation
+} from 'react-router-dom';
 import { getMovieInformation } from 'services/api';
 
 import s from './MovieDetails.module.css';
 
 export default function MovieDetails() {
   const [data, setData] = useState(null);
+
   const { movieId } = useParams();
-  let navigate = useNavigate();
 
   useEffect(() => {
     getMovieInformation(movieId).then(response => {
@@ -15,11 +20,12 @@ export default function MovieDetails() {
     });
   }, [movieId]);
 
+  const location = useLocation();
+
   return (
     <div className={s.wrap}>
-      <button type="button" onClick={() => navigate(-1)}>
-        Go Back
-      </button>
+
+      <Link to={location?.state?.from ?? '/'}>Go back</Link>
 
       {data && (
         <>
@@ -58,8 +64,10 @@ export default function MovieDetails() {
           </ul>
         </>
       )}
-
+<Suspense fallback={<div>Loading...</div>}>
       <Outlet />
+      </Suspense>
+
     </div>
   );
 }

@@ -1,37 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import s from './Movies.module.css';
 import { getMoviesOnQuery } from 'services/api';
 
 export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [query, setQuery] = useState(() =>
     searchParams.get('query') ? searchParams.get('query') : ''
   );
   const [data, setData] = useState('');
 
-  const { pathname, search } = useLocation();
+  useEffect(() => {
+    if (searchParams.get('query')) {
+      getMoviesOnQuery(query).then(response => setData(response.data.results));
+    }
+  }, [query, searchParams]);
 
-  const handleChange = evt => {
-    setQuery(evt.target.value);
-  };
+  // const { pathname, search } = useLocation();
+  const location = useLocation();
 
   const handleSubmit = evt => {
-    const normalizedQuery = query.trim().toLowerCase();
     evt.preventDefault();
-    if (!query) {
-      return;
-    }
-    getMoviesOnQuery(query).then(response => {
-      setData(response.data.results);
-    });
-    setSearchParams(`query=${normalizedQuery}`);
+    setSearchParams(`query=${evt.currentTarget.elements.query.value}`);
+    const normalizedQuery = evt.currentTarget.elements.query.value
+      .trim()
+      .toLowerCase();
+    setQuery(normalizedQuery);
   };
 
   return (
     <div className="">
       <form onSubmit={handleSubmit} className={s.form}>
-        <input type="input" onChange={handleChange} autoFocus value={query} />
+        <input type="text" autoFocus name="query" />
         <button type="submit" className={s.btn}>
           Search
         </button>
@@ -43,14 +44,7 @@ export default function Movies() {
               const movieId = film.id;
               return (
                 <li key={film.id}>
-                  <Link
-                    to={
-                      pathname.includes('movies')
-                        ? `${movieId}`
-                        : `movies/${movieId}`
-                    }
-                    state={{ from: pathname, search: search }}
-                  >
+                  <Link to={`/movies/${movieId}`} state={{ from: location }}>
                     {film.title}
                   </Link>
                 </li>

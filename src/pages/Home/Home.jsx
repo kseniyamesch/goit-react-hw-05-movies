@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { getPopularMovies } from 'services/api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
+
+  // const { pathname, search } = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     getPopularMovies()
@@ -28,7 +31,9 @@ export default function Home() {
             const movieId = movie.id;
             return (
               <li key={movie.id}>
-                <Link to={`/movies/${movieId}`}> {movie.title} </Link>
+                <Link to={`/movies/${movieId}`} state={{ from: location }}>
+                  {movie.title}
+                </Link>
               </li>
             );
           })}
