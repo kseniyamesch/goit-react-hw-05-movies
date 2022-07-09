@@ -6,7 +6,6 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
 
-  // const { pathname, search } = useLocation();
   const location = useLocation();
 
   useEffect(() => {

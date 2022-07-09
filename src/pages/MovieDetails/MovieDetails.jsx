@@ -25,7 +25,10 @@ export default function MovieDetails() {
   return (
     <div className={s.wrap}>
 
-      <Link to={location?.state?.from ?? '/'}>Go back</Link>
+      <Link to={location?.state?.from ?? '/'}>
+        <button>Go back</button>
+        
+        </Link>
 
       {data && (
         <>

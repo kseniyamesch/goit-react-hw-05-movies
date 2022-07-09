@@ -17,7 +17,6 @@ export default function Movies() {
     }
   }, [query, searchParams]);
 
-  // const { pathname, search } = useLocation();
   const location = useLocation();
 
   const handleSubmit = evt => {
@@ -32,7 +31,7 @@ export default function Movies() {
   return (
     <div className="">
       <form onSubmit={handleSubmit} className={s.form}>
-        <input type="text" autoFocus name="query" />
+        <input type="text" autoFocus name="query"/>
         <button type="submit" className={s.btn}>
           Search
         </button>
