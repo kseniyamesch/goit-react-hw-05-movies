@@ -11,6 +11,16 @@ export default function Movies() {
   );
   const [data, setData] = useState('');
 
+  const handleChange = (evt) => {
+    setQuery(evt.currentTarget.value)
+  }
+
+const handleSubmit = (evt) => {
+  evt.preventDefault();
+  setSearchParams(`query=${evt.currentTarget.elements.query.value}`);
+  if (query) {getMoviesOnQuery(query).then(response => setData(response.data.results));}
+}
+
   useEffect(() => {
     if (searchParams.get('query')) {
       getMoviesOnQuery(query).then(response => setData(response.data.results));
@@ -19,19 +29,25 @@ export default function Movies() {
 
   const location = useLocation();
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    setSearchParams(`query=${evt.currentTarget.elements.query.value}`);
-    const normalizedQuery = evt.currentTarget.elements.query.value
-      .trim()
-      .toLowerCase();
-    setQuery(normalizedQuery);
-  };
+  // const handleSubmit = evt => {
+  //   evt.preventDefault();
+  //   setSearchParams(`query=${evt.currentTarget.elements.query.value}`);
+  //   const normalizedQuery = evt.currentTarget.elements.query.value
+  //     .trim()
+  //     .toLowerCase();
+  //   setQuery(normalizedQuery);
+  // };
 
   return (
     <div className="">
       <form onSubmit={handleSubmit} className={s.form}>
-        <input type="text" autoFocus name="query"/>
+        <input 
+        type="text" 
+        autoFocus 
+        name="query"
+        value = {query}
+        onChange = {handleChange}
+        />
         <button type="submit" className={s.btn}>
           Search
         </button>
