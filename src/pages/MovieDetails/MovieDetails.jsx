@@ -1,10 +1,5 @@
-import { useEffect, useState, Suspense} from 'react';
-import {
-  Link,
-  Outlet,
-  useParams,
-  useLocation
-} from 'react-router-dom';
+import { useEffect, useState, Suspense } from 'react';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMovieInformation } from 'services/api';
 
 import s from './MovieDetails.module.css';
@@ -22,13 +17,13 @@ export default function MovieDetails() {
 
   const location = useLocation();
 
+  const path = location?.state?.from ?? '/';
+
   return (
     <div className={s.wrap}>
-
-      <Link to={location?.state?.from ?? '/'}>
+      <Link to={path}>
         <button>Go back</button>
-        
-        </Link>
+      </Link>
 
       {data && (
         <>
@@ -59,18 +54,21 @@ export default function MovieDetails() {
           <p>Additional information</p>
           <ul>
             <li>
-              <Link to="cast">Cast</Link>
+              <Link to="cast" state={{ from: path }}>
+                Cast
+              </Link>
             </li>
             <li>
-              <Link to="reviews">Review</Link>
+              <Link to="reviews" state={{ from: path }}>
+                Review
+              </Link>
             </li>
           </ul>
         </>
       )}
-<Suspense fallback={<div>Loading...</div>}>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
       </Suspense>
-
     </div>
   );
 }
